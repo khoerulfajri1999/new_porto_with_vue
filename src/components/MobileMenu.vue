@@ -2,7 +2,7 @@
   <transition name="slide">
     <div
       v-if="isMenuOpen"
-      class="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex justify-end"
+      class="fixed inset-0 z-50 bg-black/10 transition-all duration-300 backdrop-blur-sm flex justify-end"
       @click.self="$emit('toggle-menu')"
     >
       <!-- Slide Panel -->
@@ -19,15 +19,34 @@
 
         <!-- Navigation Links -->
         <nav class="mt-16 space-y-6 text-xl font-semibold">
-          <a href="#home" class="block hover:text-blue-500 transition">Home</a>
-          <a href="#services" class="block hover:text-blue-500 transition">Services</a>
-          <a href="#about" class="block hover:text-blue-500 transition">About</a>
-          <a href="#home" class="block hover:text-blue-500 transition">Contact</a>
+          <a
+            href="#home"
+            @click="$emit('toggle-menu')"
+            class="block hover:text-blue-500 transition"
+            >Home</a
+          >
+          <a
+            href="#services"
+            @click="$emit('toggle-menu')"
+            class="block hover:text-blue-500 transition"
+            >Services</a
+          >
+          <a
+            href="#about"
+            @click="$emit('toggle-menu')"
+            class="block hover:text-blue-500 transition"
+            >About</a
+          >
+          <a
+            href="#home"
+            @click="$emit('toggle-menu')"
+            class="block hover:text-blue-500 transition"
+            >Contact</a
+          >
         </nav>
 
         <!-- Social Media Section -->
         <div class="flex items-center justify-between border-t border-white/20">
-
           <div class="text-md text-gray-400 mt-40">
             <p>Powered by</p>
             <p class="font-semibold text-white">
@@ -63,7 +82,7 @@
 </template>
 
 <script setup>
-import { X, Facebook, Instagram, Twitter } from 'lucide-vue-next';
+import { X, Facebook, Instagram, Twitter } from "lucide-vue-next";
 
 defineProps({ isMenuOpen: Boolean });
 </script>

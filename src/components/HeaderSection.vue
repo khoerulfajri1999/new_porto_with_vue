@@ -3,25 +3,34 @@
     ref="headerRef"
     class="fixed top-0 z-50 w-full transition-all duration-300 px-4 md:px-6 lg:px-8 flex mt-2"
   >
-    <div class="mx-14 flex flex-col items-center justify-between w-full max-w-full">
+    <div
+      class="mx-14 flex flex-col items-center justify-between w-full max-w-full"
+    >
       <div
         ref="borderRef"
-        class="flex items-center justify-between w-full origin-left scale-y-0"
+        class="flex pe-3 transition-all duration-300 ease-in-out items-center justify-between w-full origin-left scale-y-0"
+        :class="{
+          'bg-neutral-800 rounded-full':
+            isScrollingUp || isHoveringLogo || hasHoveredLogo,
+          'bg-transparent':
+            !isScrollingUp && !isHoveringLogo && !hasHoveredLogo,
+        }"
       >
         <div
           class="flex items-center space-x-4 transition-all duration-500 ease-in-out"
           :class="{
-            'bg-black rounded-full text-white shadow-lg': isScrolledDown || isScrollingUp || isHoveringLogo,
+            'bg-neutral-800 rounded-full text-white shadow-lg':
+              isScrolledDown || isScrollingUp,
           }"
           @mouseenter="onLogoHover(true)"
           @mouseleave="onLogoHover(false)"
         >
           <!-- Logo besar -->
           <div
-            class="flex items-center space-x-4 transition-opacity duration-300"
+            class="flex items-center space-x-4 transition-opacity duration-300 cursor-pointer"
             :class="{
-              'opacity-0 hidden': isScrolledDown || isScrollingUp || isHoveringLogo,
-              'opacity-100 flex': !isScrolledDown && !isScrollingUp && !isHoveringLogo
+              'opacity-0 hidden': isScrolledDown || isScrollingUp,
+              'opacity-100 flex': !isScrolledDown && !isScrollingUp,
             }"
           >
             <img
@@ -29,11 +38,11 @@
               alt="logo-default"
               class="w-40 md:w-60 lg:w-80 transition-opacity duration-300"
             />
-            <div class="hidden sm:flex items-center space-x-2 text-gray-300 text-sm leading-tight">
+            <div
+              class="hidden sm:flex items-center space-x-2 text-gray-300 text-sm leading-tight"
+            >
               <div class="h-12 border-r-2 border-current"></div>
-              <div class="pl-2">
-                Everything<br />you can be
-              </div>
+              <div class="pl-2">Everything<br />you can be</div>
             </div>
           </div>
 
@@ -41,10 +50,10 @@
           <img
             src="../assets/Logo PT.png"
             alt="logo-scroll"
-            class="p-1 transition-all duration-300 ease-in-out w-10 lg:w-20"
+            class="p-3 transition-discrete ease-in-out w-20 lg:w-30 cursor-pointer"
             :class="{
-              'scale-75 opacity-100': isScrolledDown || isScrollingUp || isHoveringLogo,
-              'scale-100 opacity-0': !isScrolledDown && !isScrollingUp && !isHoveringLogo
+              'scale-75 opacity-100': isScrolledDown || isScrollingUp,
+              'scale-100 opacity-0': !isScrolledDown && !isScrollingUp,
             }"
           />
         </div>
@@ -53,23 +62,37 @@
         <div
           class="relative transition-all duration-500 ease-in-out ml-4"
           :class="{
-            'bg-black rounded-full shadow-lg': isScrollingUp || isHoveringLogo || hasHoveredLogo,
-            'bg-transparent': !isScrollingUp && !isHoveringLogo && !hasHoveredLogo,
+            'rounded-full shadow-lg':
+              isScrollingUp || isHoveringLogo || hasHoveredLogo,
+            'bg-transparent':
+              !isScrollingUp && !isHoveringLogo && !hasHoveredLogo,
           }"
         >
           <div
             class="flex items-center justify-between gap-6 px-4 py-2 transition-opacity duration-500"
             :class="{
-              'opacity-0 pointer-events-none': isScrolledDown && !isScrollingUp && !isHoveringLogo,
-              'opacity-100': !isScrolledDown || isScrollingUp || isHoveringLogo || hasHoveredLogo
+              'opacity-0': isScrolledDown && !isScrollingUp && !isHoveringLogo,
+              'opacity-100':
+                !isScrolledDown ||
+                isScrollingUp ||
+                isHoveringLogo ||
+                hasHoveredLogo,
             }"
           >
             <!-- Nav links -->
             <nav class="hidden lg:flex space-x-8 text-white font-medium">
-              <a href="#home" class="hover:text-gray-300 transition-colors">Home</a>
-              <a href="#services" class="hover:text-gray-300 transition-colors">Services</a>
-              <a href="#about" class="hover:text-gray-300 transition-colors">About</a>
-              <a href="#home" class="hover:text-gray-300 transition-colors">Contact</a>
+              <a href="#home" class="hover:text-gray-300 transition-colors"
+                >Home</a
+              >
+              <a href="#services" class="hover:text-gray-300 transition-colors"
+                >Services</a
+              >
+              <a href="#about" class="hover:text-gray-300 transition-colors"
+                >About</a
+              >
+              <a href="#home" class="hover:text-gray-300 transition-colors"
+                >Contact</a
+              >
             </nav>
 
             <!-- Hamburger -->
@@ -84,15 +107,16 @@
       </div>
 
       <!-- Text below border -->
-      <div 
-        class="hidden lg:flex border-t border-t-amber-200 flex justify-end w-full pt-0 pb-2 text-sm transition-all duration-500 ease-in-out"
+      <div
+        class="hidden lg:flex border-t border-t-yellow-300 md:flex justify-end w-full pt-0 pb-2 text-sm transition-all duration-500 ease-in-out"
         :class="{
-                'opacity-0 pointer-events-none': isScrolledDown && !isScrollingUp && !isHoveringLogo,
-                'opacity-100': !isScrolledDown || isScrollingUp || isHoveringLogo || hasHoveredLogo
-              }">
+          'opacity-0 hidden': isScrolledDown || isScrollingUp,
+          'opacity-100 flex': !isScrolledDown && !isScrollingUp,
+        }"
+      >
         <div
           ref="locationRef"
-          class="bg-gray-100 text-black px-4 py-1 rounded-b shadow-sm inline-flex"
+          class="bg-yellow-300 text-black px-4 py-1 rounded-b shadow-sm inline-flex"
         >
           Purwokerto, Central Java, Indonesia
         </div>
@@ -102,9 +126,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue';
-import { Menu } from 'lucide-vue-next';
-import { gsap } from 'gsap';
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
+import { Menu } from "lucide-vue-next";
+import { gsap } from "gsap";
 
 const isScrolledDown = ref(false);
 const isScrollingUp = ref(false);
@@ -135,17 +159,17 @@ const onLogoHover = (hovering) => {
 };
 
 onMounted(async () => {
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener("scroll", handleScroll);
   await nextTick();
 
   // Animate border from top to bottom
   gsap.fromTo(
     borderRef.value,
-    { scaleY: 0, transformOrigin: 'top center' },
+    { scaleY: 0, transformOrigin: "top center" },
     {
       scaleY: 1,
       duration: 1,
-      ease: 'power2.out',
+      ease: "power2.out",
     }
   );
 
@@ -155,12 +179,12 @@ onMounted(async () => {
     opacity: 0,
     duration: 1,
     delay: 0.5,
-    ease: 'power2.out',
+    ease: "power2.out",
   });
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener("scroll", handleScroll);
 });
 </script>
 
