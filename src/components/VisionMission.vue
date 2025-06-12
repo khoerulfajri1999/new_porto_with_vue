@@ -2,7 +2,7 @@
   <section class="grid grid-cols-1 md:grid-cols-8">
     <div
       ref="visionRef"
-      class="py-14 px-21 col-span-8 md:col-span-4 lg:col-span-4 xl:col-span-2 bg-black text-white p-4 opacity-0"
+      class="py-14 ps-[8vw] col-span-8 md:col-span-4 lg:col-span-4 xl:col-span-2 bg-black text-white p-4 opacity-0"
     >
       <h2 class="text-xl font-semibold border-l-4 border-white pl-2 mb-2">
         Vision
@@ -16,7 +16,7 @@
 
     <div
       ref="missionRef"
-      class="py-14 px-21 md:px-10 col-span-8 md:col-span-4 lg:col-span-4 xl:col-span-2 p-4 bg-gray-100 opacity-0"
+      class="py-14 ps-[8vw] md:px-10 col-span-8 md:col-span-4 lg:col-span-4 xl:col-span-2 p-4 bg-gray-100 opacity-0"
     >
       <h2 class="text-xl font-semibold border-l-4 border-black pl-2 mb-2">
         Mission

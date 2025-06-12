@@ -1,6 +1,6 @@
 <template>
-  <section class="text-gray-600 body-font relative">
-    <div class="px-21 py-24 flex sm:flex-nowrap flex-wrap">
+  <section class="container mx-auto text-gray-600 body-font relative">
+    <div class="py-24 px-10 sm:px-0 flex sm:flex-nowrap flex-wrap">
       <div
         class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative"
       >

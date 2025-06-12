@@ -8,7 +8,7 @@
       <!-- Left Section: Company Info -->
       <div
         ref="leftSection"
-        class="lg:w-1/2 bg-gray-100 px-21 py-12 lg:px-20 lg:py-20 flex flex-col justify-center"
+        class="lg:w-1/2 bg-gray-100 ps-[8vw] pe-10 py-12 lg:ps-37 lg:py-20 flex flex-col justify-center"
       >
         <h1
           ref="heading"

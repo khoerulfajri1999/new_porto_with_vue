@@ -1,7 +1,7 @@
 <template>
   <footer
     ref="footerRef"
-    class="mx-14 relative z-10 flex items-end justify-between px-6 lg:px-8 flex-shrink-0 opacity-0 translate-y-10"
+    class="container px-10 sm:px-0 mx-auto relative z-10 flex items-end justify-between flex-shrink-0 opacity-0 translate-y-10"
   >
     <div class="text-md pb-10 text-gray-400">
       <p>Powered by</p>

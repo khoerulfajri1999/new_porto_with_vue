@@ -1,7 +1,7 @@
 <template>
     <div>
       <div
-        class=" bg-black/90 text-white relative overflow-hidden flex flex-col"
+        class="h-screen bg-black/90 text-white relative overflow-hidden flex flex-col"
       >
         <div class="absolute inset-0 z-0">
           <img
@@ -12,7 +12,6 @@
           <div class="absolute inset-0 bg-black/40"></div>
         </div>
   
-        <div class="container mx-auto">
            <!-- <UnderContruction /> -->
            <Header @toggle-menu="toggleMenu" />
            <MobileMenu :isMenuOpen="isMenuOpen" @toggle-menu="toggleMenu" />
@@ -21,7 +20,6 @@
            <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 z-10">
              <ChevronDown class="w-20 h-20 text-white animate-bounce" />
            </div>
-         </div>
       </div>
       <VisionMission />
       <CompanyProfileSection />

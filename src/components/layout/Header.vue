@@ -1,130 +1,132 @@
 <template>
-  <header
-    ref="headerRef"
-    class="container mx-auto fixed top-0 z-50 w-full transition-all duration-300 flex mt-2"
-  >
+  <div class="container mx-auto">
     <div
-      class="flex flex-col items-center justify-between w-full max-w-full"
+      ref="headerRef"
+      class="container px-10 sm:px-0 fixed top-0 z-50 w-full transition-all duration-300 flex mt-2"
     >
       <div
-        ref="borderRef"
-        class="flex transition-all duration-300 ease-in-out items-center justify-between w-full origin-left scale-y-0"
-        :class="{
-          'bg-neutral-800 rounded-full':
-            isScrollingUp ||
-            (isScrolledDown && (isHoveringLogo || hasHoveredLogo)),
-          'bg-transparent':
-            !isScrollingUp &&
-            (!isScrolledDown || (!isHoveringLogo && !hasHoveredLogo)),
-        }"
+        class="flex flex-col items-center justify-between w-full max-w-full"
       >
         <div
-          class="flex items-center space-x-4 transition-all duration-500 ease-in-out"
+          ref="borderRef"
+          class="flex transition-all duration-300 ease-in-out items-center justify-between w-full origin-left scale-y-0"
           :class="{
-            'bg-neutral-800 rounded-full text-white shadow-lg':
-              isScrolledDown || isScrollingUp,
+            'bg-neutral-800 rounded-full':
+              isScrollingUp ||
+              (isScrolledDown && (isHoveringLogo || hasHoveredLogo)),
+            'bg-transparent':
+              !isScrollingUp &&
+              (!isScrolledDown || (!isHoveringLogo && !hasHoveredLogo)),
           }"
-          @mouseenter="onLogoHover(true)"
-          @mouseleave="onLogoHover(false)"
         >
-          <!-- Logo besar -->
           <div
-            class="flex items-center space-x-4 transition-opacity duration-300 cursor-pointer"
+            class="flex items-center space-x-4 transition-all duration-500 ease-in-out"
             :class="{
-              'opacity-0 hidden': isScrolledDown || isScrollingUp,
-              'opacity-100 flex': !isScrolledDown && !isScrollingUp,
+              'bg-neutral-800 rounded-full text-white shadow-lg':
+                isScrolledDown || isScrollingUp,
+            }"
+            @mouseenter="onLogoHover(true)"
+            @mouseleave="onLogoHover(false)"
+          >
+            <!-- Logo besar -->
+            <div
+              class="flex items-center space-x-4 transition-opacity duration-300 cursor-pointer"
+              :class="{
+                'opacity-0 hidden': isScrolledDown || isScrollingUp,
+                'opacity-100 flex': !isScrolledDown && !isScrollingUp,
+              }"
+            >
+              <img
+                src="../../assets/Logo PT Dark.png"
+                alt="logo-default"
+                class="w-40 md:w-60 lg:w-80 transition-opacity duration-300"
+              />
+              <div
+                class="hidden sm:flex items-center space-x-2 text-gray-300 text-sm leading-tight"
+              >
+                <div class="h-12 border-r-2 border-current"></div>
+                <div class="pl-2">Everything<br />you can be</div>
+              </div>
+            </div>
+  
+            <!-- Logo kecil -->
+            <img
+              src="../../assets/Logo PT.png"
+              alt="logo-scroll"
+              class="p-3 transition-discrete ease-in-out w-20 lg:w-30 cursor-pointer"
+              :class="{
+                'scale-75 opacity-100': isScrolledDown || isScrollingUp,
+                'scale-100 opacity-0': !isScrolledDown && !isScrollingUp,
+              }"
+            />
+          </div>
+  
+          <!-- Navigation & Hamburger Wrapper -->
+          <div
+            class="relative transition-all duration-500 ease-in-out ml-4"
+            :class="{
+              'rounded-full shadow-lg':
+                isScrollingUp || isHoveringLogo || hasHoveredLogo,
+              'bg-transparent':
+                !isScrollingUp && !isHoveringLogo && !hasHoveredLogo,
             }"
           >
-            <img
-              src="../../assets/Logo PT Dark.png"
-              alt="logo-default"
-              class="w-40 md:w-60 lg:w-80 transition-opacity duration-300"
-            />
             <div
-              class="hidden sm:flex items-center space-x-2 text-gray-300 text-sm leading-tight"
+              class="flex items-center justify-between gap-6 px-4 py-2 transition-opacity duration-500"
+              :class="{
+                'opacity-0': isScrolledDown && !isScrollingUp && !isHoveringLogo,
+                'opacity-100':
+                  !isScrolledDown ||
+                  isScrollingUp ||
+                  isHoveringLogo ||
+                  hasHoveredLogo,
+              }"
             >
-              <div class="h-12 border-r-2 border-current"></div>
-              <div class="pl-2">Everything<br />you can be</div>
+              <!-- Nav links -->
+              <nav class="hidden lg:flex space-x-8 text-white font-medium">
+                <a href="#home" class="hover:text-gray-300 transition-colors"
+                  >Home</a
+                >
+                <a href="#services" class="hover:text-gray-300 transition-colors"
+                  >Services</a
+                >
+                <a href="#about" class="hover:text-gray-300 transition-colors"
+                  >About</a
+                >
+                <a href="#home" class="hover:text-gray-300 transition-colors"
+                  >Contact</a
+                >
+              </nav>
+  
+              <!-- Hamburger -->
+              <button
+                class="lg:p-2 hover:bg-white/10 rounded-full transition-colors lg:hidden"
+                @click="$emit('toggle-menu')"
+              >
+                <Menu class="w-6 h-6 text-white" />
+              </button>
             </div>
           </div>
-
-          <!-- Logo kecil -->
-          <img
-            src="../../assets/Logo PT.png"
-            alt="logo-scroll"
-            class="p-3 transition-discrete ease-in-out w-20 lg:w-30 cursor-pointer"
-            :class="{
-              'scale-75 opacity-100': isScrolledDown || isScrollingUp,
-              'scale-100 opacity-0': !isScrolledDown && !isScrollingUp,
-            }"
-          />
         </div>
-
-        <!-- Navigation & Hamburger Wrapper -->
+  
+        <!-- Text below border -->
         <div
-          class="relative transition-all duration-500 ease-in-out ml-4"
+          class="hidden lg:flex border-t border-t-yellow-300 md:flex justify-end w-full pt-0 pb-2 text-sm transition-all duration-500 ease-in-out"
           :class="{
-            'rounded-full shadow-lg':
-              isScrollingUp || isHoveringLogo || hasHoveredLogo,
-            'bg-transparent':
-              !isScrollingUp && !isHoveringLogo && !hasHoveredLogo,
+            'opacity-0 hidden': isScrolledDown || isScrollingUp,
+            'opacity-100 flex': !isScrolledDown && !isScrollingUp,
           }"
         >
           <div
-            class="flex items-center justify-between gap-6 px-4 py-2 transition-opacity duration-500"
-            :class="{
-              'opacity-0': isScrolledDown && !isScrollingUp && !isHoveringLogo,
-              'opacity-100':
-                !isScrolledDown ||
-                isScrollingUp ||
-                isHoveringLogo ||
-                hasHoveredLogo,
-            }"
+            ref="locationRef"
+            class="bg-yellow-300 text-black px-4 py-1 rounded-b shadow-sm inline-flex"
           >
-            <!-- Nav links -->
-            <nav class="hidden lg:flex space-x-8 text-white font-medium">
-              <a href="#home" class="hover:text-gray-300 transition-colors"
-                >Home</a
-              >
-              <a href="#services" class="hover:text-gray-300 transition-colors"
-                >Services</a
-              >
-              <a href="#about" class="hover:text-gray-300 transition-colors"
-                >About</a
-              >
-              <a href="#home" class="hover:text-gray-300 transition-colors"
-                >Contact</a
-              >
-            </nav>
-
-            <!-- Hamburger -->
-            <button
-              class="lg:p-2 hover:bg-white/10 rounded-full transition-colors lg:hidden"
-              @click="$emit('toggle-menu')"
-            >
-              <Menu class="w-6 h-6 text-white" />
-            </button>
+            Purwokerto, Central Java, Indonesia
           </div>
-        </div>
-      </div>
-
-      <!-- Text below border -->
-      <div
-        class="hidden lg:flex border-t border-t-yellow-300 md:flex justify-end w-full pt-0 pb-2 text-sm transition-all duration-500 ease-in-out"
-        :class="{
-          'opacity-0 hidden': isScrolledDown || isScrollingUp,
-          'opacity-100 flex': !isScrolledDown && !isScrollingUp,
-        }"
-      >
-        <div
-          ref="locationRef"
-          class="bg-yellow-300 text-black px-4 py-1 rounded-b shadow-sm inline-flex"
-        >
-          Purwokerto, Central Java, Indonesia
         </div>
       </div>
     </div>
-  </header>
+  </div>
 </template>
 
 <script setup>

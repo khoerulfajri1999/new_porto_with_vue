@@ -1,6 +1,6 @@
 <template>
   <section
-    class="relative z-10 flex-1 flex flex-col justify-center mx-auto"
+    class="container px-10 sm:px-0 relative z-10 flex-1 flex flex-col justify-center mx-auto"
     ref="mainRef"
     id="home"
   >
