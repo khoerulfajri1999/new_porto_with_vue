@@ -1,46 +1,72 @@
 <template>
-  <section ref="aboutSection" id="about" class=" text-gray-800 bg-white overflow-hidden">
-    <div class="flex flex-col lg:flex-row items-stretch">
+  <section
+    ref="aboutSection"
+    id="about"
+    class="text-gray-800 bg-white overflow-hidden"
+  >
+    <div class="flex flex-col lg:flex-row items-stretch h-screen">
       <!-- Left Section: Company Info -->
       <div
         ref="leftSection"
-        class="lg:w-1/2 bg-gray-100 px-21 lg:px-6 py-12 lg:px-20 lg:py-20 flex flex-col justify-center"
+        class="lg:w-1/2 bg-gray-100 px-21 py-12 lg:px-20 lg:py-20 flex flex-col justify-center"
       >
-        <h1 ref="heading" class="text-3xl lg:text-4xl font-bold text-black mb-6 leading-tight">
+        <h1
+          ref="heading"
+          class="text-3xl lg:text-4xl font-bold text-black mb-6 leading-tight"
+        >
           PT SAKA TEKNOKREATIF NUSWANTARA
         </h1>
 
         <p class="text-gray-700 leading-relaxed mb-4">
-          PT Saka Teknokreatif Nuswantara is a technology company engaged in the development of
-          <span class="font-medium italic">web-based software, mobile applications, and web services</span>. 
-          We focus on developing internal information systems and digital solutions tailored to client needs.
+          PT Saka Teknokreatif Nuswantara is a technology company engaged in the
+          development of
+          <span class="font-medium italic"
+            >web-based software, mobile applications, and web services</span
+          >. We focus on developing internal information systems and digital
+          solutions tailored to client needs.
         </p>
         <p class="text-gray-700 leading-relaxed">
-          With an adaptive approach and emphasis on process efficiency, we have experience handling various IT projects 
-          closely related to internal business processes, including financial management, operational data tracking, 
-          registration systems, and data visualization for decision support.
+          With an adaptive approach and emphasis on process efficiency, we have
+          experience handling various IT projects closely related to internal
+          business processes, including financial management, operational data
+          tracking, registration systems, and data visualization for decision
+          support.
         </p>
       </div>
 
       <!-- Right Section: Photo & Quote -->
       <div
         ref="rightSection"
-        class="lg:w-1/2 flex flex-col items-end sm:items-center justify-center relative px-21 lg:px-6 py-16 lg:px-20 bg-white"
+        class="lg:w-1/2 flex flex-col items-end sm:items-center justify-center relative px-21 py-30 lg:px-20"
       >
+        <div class="absolute inset-0 z-0">
+          <img
+            src="../assets/texture-bg.webp"
+            alt="stevara.id-background"
+            class="w-full h-full object-cover opacity-80"
+          />
+          <div class="absolute inset-0 bg-black/40"></div>
+        </div>
         <!-- Photo & Bubble -->
-        <div class="relative flex flex-row justify-between items-center sm:flex-col sm:items-center">
+        <div
+          class="relative flex flex-row justify-between items-center sm:flex-col sm:items-center"
+        >
           <!-- Bubble -->
           <div
             ref="bubble"
-            class="absolute -top-8 sm:-top-16 -left-48 sm:-left-25 lg:-left-40 bg-blue-500 text-white text-xs sm:text-sm lg:text-md p-4 z-10 rounded-xl shadow-xl w-[250px] sm:w-[200px] lg:w-[300px] text-center order-2 sm:order-1"
+            class="absolute -top-8 sm:-top-16 -left-48 sm:-left-25 lg:-left-40 bg-yellow-300 text-black text-xs sm:text-sm lg:text-md p-4 z-10 rounded-xl shadow-xl w-[250px] sm:w-[200px] lg:w-[300px] text-center order-2 sm:order-1"
           >
             <p class="italic leading-relaxed">
-              “We believe that great technology is not just about features, but about solving real problems in a simple and reliable way.”
+              “We believe that great technology is not just about features, but
+              about solving real problems in a simple and reliable way.”
             </p>
           </div>
 
           <!-- Image -->
-          <div ref="photo" class="w-46 h-46 sm:w-76 sm:h-76 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-gray-300 shadow-lg">
+          <div
+            ref="photo"
+            class="w-46 h-46 sm:w-76 sm:h-76 lg:w-100 lg:h-100 rounded-full overflow-hidden border-4 border-gray-300 shadow-lg"
+          >
             <img
               src="../assets/People.png"
               alt="Agung Tri Wibowo"
@@ -51,8 +77,12 @@
 
         <!-- Nama -->
         <div ref="caption" class="mt-6 text-center">
-          <p class="font-semibold text-lg text-black">Agung Tri Wibowo, S.Kom</p>
-          <p class="text-sm text-gray-600">Director of PT SAKA TEKNOKREATIF NUSWANTARA</p>
+          <p class="font-semibold text-lg text-white">
+            Agung Tri Wibowo, S.Kom
+          </p>
+          <p class="text-sm text-neutral-400">
+            Director of PT SAKA TEKNOKREATIF NUSWANTARA
+          </p>
         </div>
       </div>
     </div>
