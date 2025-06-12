@@ -4,7 +4,7 @@
     id="about"
     class="text-gray-800 bg-white overflow-hidden"
   >
-    <div class="flex flex-col lg:flex-row items-stretch h-screen">
+    <div class="flex flex-col lg:flex-row items-stretch">
       <!-- Left Section: Company Info -->
       <div
         ref="leftSection"
