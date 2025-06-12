@@ -4,16 +4,18 @@
     class="fixed top-0 z-50 w-full transition-all duration-300 px-4 md:px-6 lg:px-8 flex mt-2"
   >
     <div
-      class="mx-14 flex flex-col items-center justify-between w-full max-w-full"
+      class="mx-14 flexflex-col items-center justify-between w-full max-w-full"
     >
       <div
         ref="borderRef"
         class="flex pe-3 transition-all duration-300 ease-in-out items-center justify-between w-full origin-left scale-y-0"
         :class="{
           'bg-neutral-800 rounded-full':
-            isScrollingUp || isHoveringLogo || hasHoveredLogo,
+            isScrollingUp ||
+            (isScrolledDown && (isHoveringLogo || hasHoveredLogo)),
           'bg-transparent':
-            !isScrollingUp && !isHoveringLogo && !hasHoveredLogo,
+            !isScrollingUp &&
+            (!isScrolledDown || (!isHoveringLogo && !hasHoveredLogo)),
         }"
       >
         <div
@@ -34,7 +36,7 @@
             }"
           >
             <img
-              src="../assets/Logo PT Dark.png"
+              src="../../assets/Logo PT Dark.png"
               alt="logo-default"
               class="w-40 md:w-60 lg:w-80 transition-opacity duration-300"
             />
@@ -48,7 +50,7 @@
 
           <!-- Logo kecil -->
           <img
-            src="../assets/Logo PT.png"
+            src="../../assets/Logo PT.png"
             alt="logo-scroll"
             class="p-3 transition-discrete ease-in-out w-20 lg:w-30 cursor-pointer"
             :class="{

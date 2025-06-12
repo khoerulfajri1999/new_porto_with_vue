@@ -7,7 +7,10 @@
       class="max-w-full mx-14 px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-5 gap-8"
     >
       <div class="col-span-1 md:col-span-2">
-        <h2 class="text-2xl font-bold mb-4">stevara.id</h2>
+        <div class="flex space-x-2">
+          <img src="../../assets/Logo PT.png" class="w-8 h-8" />
+          <h2 class="text-2xl font-bold mb-4">stevara.id</h2>
+        </div>
         <p class="text-gray-400 text-sm">
           A trusted digital solution for your events and business.
         </p>
@@ -34,21 +37,21 @@
       </div>
       <div class="flex flex-col">
         <h3 class="text-xl font-semibold">Follow Us</h3>
-        <div class="flex flex-col space-y-4 px-3 py-4 w-fit">
+        <div class="flex space-x-3 py-4 w-fit">
           <button
-            class="hover:bg-white/20 rounded-full p-2 transition-colors text-white"
+            class="hover:bg-white/20 rounded-full transition-colors text-white"
             @click="$emit('open-social', 'facebook')"
           >
             <Facebook class="w-6 h-6" />
           </button>
           <button
-            class="hover:bg-white/20 rounded-full p-2 transition-colors text-white"
+            class="hover:bg-white/20 rounded-full transition-colors text-white"
             @click="$emit('open-social', 'instagram')"
           >
             <Instagram class="w-6 h-6" />
           </button>
           <button
-            class="hover:bg-white/20 rounded-full p-2 transition-colors text-white"
+            class="hover:bg-white/20 rounded-full transition-colors text-white"
             @click="$emit('open-social', 'twitter')"
           >
             <Twitter class="w-6 h-6" />

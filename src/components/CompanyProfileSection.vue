@@ -4,7 +4,7 @@
     id="about"
     class="text-gray-800 bg-white overflow-hidden"
   >
-    <div class="flex flex-col lg:flex-row items-stretch">
+    <div class="flex flex-col lg:flex-row items-stretch h-screen">
       <!-- Left Section: Company Info -->
       <div
         ref="leftSection"
@@ -37,8 +37,16 @@
       <!-- Right Section: Photo & Quote -->
       <div
         ref="rightSection"
-        class="lg:w-1/2 flex flex-col items-end sm:items-center justify-center relative px-21 py-16 lg:px-20 bg-white"
+        class="lg:w-1/2 flex flex-col items-end sm:items-center justify-center relative px-21 py-30 lg:px-20"
       >
+        <div class="absolute inset-0 z-0">
+          <img
+            src="../assets/texture-bg.webp"
+            alt="stevara.id-background"
+            class="w-full h-full object-cover opacity-80"
+          />
+          <div class="absolute inset-0 bg-black/40"></div>
+        </div>
         <!-- Photo & Bubble -->
         <div
           class="relative flex flex-row justify-between items-center sm:flex-col sm:items-center"
@@ -46,7 +54,7 @@
           <!-- Bubble -->
           <div
             ref="bubble"
-            class="absolute -top-8 sm:-top-16 -left-48 sm:-left-25 lg:-left-40 bg-blue-500 text-white text-xs sm:text-sm lg:text-md p-4 z-10 rounded-xl shadow-xl w-[250px] sm:w-[200px] lg:w-[300px] text-center order-2 sm:order-1"
+            class="absolute -top-8 sm:-top-16 -left-48 sm:-left-25 lg:-left-40 bg-yellow-300 text-black text-xs sm:text-sm lg:text-md p-4 z-10 rounded-xl shadow-xl w-[250px] sm:w-[200px] lg:w-[300px] text-center order-2 sm:order-1"
           >
             <p class="italic leading-relaxed">
               “We believe that great technology is not just about features, but
@@ -57,7 +65,7 @@
           <!-- Image -->
           <div
             ref="photo"
-            class="w-46 h-46 sm:w-76 sm:h-76 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-gray-300 shadow-lg"
+            class="w-46 h-46 sm:w-76 sm:h-76 lg:w-100 lg:h-100 rounded-full overflow-hidden border-4 border-gray-300 shadow-lg"
           >
             <img
               src="../assets/People.png"
@@ -69,10 +77,10 @@
 
         <!-- Nama -->
         <div ref="caption" class="mt-6 text-center">
-          <p class="font-semibold text-lg text-black">
+          <p class="font-semibold text-lg text-white">
             Agung Tri Wibowo, S.Kom
           </p>
-          <p class="text-sm text-gray-600">
+          <p class="text-sm text-neutral-400">
             Director of PT SAKA TEKNOKREATIF NUSWANTARA
           </p>
         </div>

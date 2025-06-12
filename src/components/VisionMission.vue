@@ -1,5 +1,5 @@
 <template>
-  <section class="grid grid-cols-1 md:grid-cols-8" id="services">
+  <section class="grid grid-cols-1 md:grid-cols-8">
     <div
       ref="visionRef"
       class="py-14 px-21 col-span-8 md:col-span-4 lg:col-span-4 xl:col-span-2 bg-black text-white p-4 opacity-0"
@@ -41,7 +41,7 @@
       ref="nameRef"
       class="col-span-8 my-10 xl:col-span-4 flex flex-col justify-center m-auto bg-white p-4 rounded opacity-0"
     >
-      <p class="text-3xl md:text-7xl font-bold text-center">stevara.id</p>
+      <p class="text-3xl md:text-9xl font-bold text-center">stevara.id</p>
       <p class="text-md uppercase tracking-wide font-bold text-center">
         PT SAKA TEKNOKREATIF NUSANTARA
       </p>

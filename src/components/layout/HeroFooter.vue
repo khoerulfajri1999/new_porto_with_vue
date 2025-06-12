@@ -36,14 +36,14 @@
 </template>
 
 <script>
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Facebook, Instagram, Twitter } from 'lucide-vue-next';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Facebook, Instagram, Twitter } from "lucide-vue-next";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default {
-  name: 'AnimatedFooter',
+  name: "AnimatedFooter",
   components: {
     Facebook,
     Instagram,
@@ -59,11 +59,11 @@ export default {
         opacity: 1,
         y: 0,
         duration: 1,
-        ease: 'power2.out',
+        ease: "power2.out",
         scrollTrigger: {
           trigger: footer,
-          start: 'top 90%',
-          toggleActions: 'play none none none',
+          start: "top 90%",
+          toggleActions: "play none none none",
         },
       }
     );
