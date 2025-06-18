@@ -1,28 +1,22 @@
 <template>
   <div>
     <div
-      class="h-screen bg-black/90 text-white relative overflow-hidden flex flex-col"
+      class="min-h-screen relative bg-gradient-to-tr from-[#030415] via-[#1E0B38] to-[#030415] text-white overflow-hidden flex flex-col"
     >
-      <div class="absolute inset-0 z-0">
-        <img
-          src="../assets/bg-image-dark-laptop.webp"
-          alt="stevara.id-background"
-          class="w-full h-full object-cover opacity-80"
-        />
-        <div class="absolute inset-0 bg-black/40"></div>
-      </div>
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(120,119,198,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(120,119,198,0.1)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+    
 
          <!-- <UnderContruction /> -->
          <Header @toggle-menu="toggleMenu" />
          <MobileMenu :isMenuOpen="isMenuOpen" @toggle-menu="toggleMenu" />
-         <HeroSection @go-to-shop="goToShop" />
-         <HeroFooter @open-social="openSocial" />
-         <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 z-10">
-           <ChevronDown class="w-20 h-20 text-white animate-bounce" />
-         </div>
+         <HeroSection @open-social="openSocial" />
+         <HeroFooter />
+         
     </div>
-    <VisionMission />
-    <CompanyProfileSection />
+    <!-- <VisionMission /> -->
+    <SkillSection />
+    <ProjectSection />
+    <!-- <CompanyProfileSection /> -->
     <ContactSection />
     <Footer />
   </div>
@@ -34,25 +28,25 @@ import { ChevronDown } from "lucide-vue-next";
 import Header from "../components/layout/Header.vue";
 import MobileMenu from "../components/layout/MobileMenu.vue";
 import HeroSection from "../components/HeroSection.vue";
-import HeroFooter from "../components/layout/HeroFooter.vue";
-import VisionMission from "../components/VisionMission.vue";
-import CompanyProfileSection from "../components/CompanyProfileSection.vue";
 import Footer from "../components/layout/Footer.vue";
+import HeroFooter from "../components/layout/HeroFooter.vue";
 import UnderContruction from "../components/layout/UnderContruction.vue";
 import ContactSection from "../components/ContactSection.vue";
+import SkillSection from "../components/SkillSection.vue";
+import ProjectSection from "../components/ProjectSection.vue";
 
 export default {
   name: "LandingPage",
   components: {
     Header,
     HeroSection,
-    HeroFooter,
     MobileMenu,
-    CompanyProfileSection,
-    VisionMission,
     Footer,
+    HeroFooter,
     ContactSection,
     UnderContruction,
+    SkillSection,
+    ProjectSection,
     ChevronDown,
   },
   data() {
@@ -68,10 +62,12 @@ export default {
       console.log("Navigating to contact/shop page");
     },
     openSocial(platform) {
+      console.log("olatform : ", platform);
+      
       const urls = {
-        facebook: "https://facebook.com/stevara",
-        instagram: "https://instagram.com/stevara",
-        twitter: "https://twitter.com/stevara",
+        linkedin: "https://www.linkedin.com/in/khoerul-fajri-93698a229/",
+        github: "https://github.com/khoerulfajri1999/",
+        whatsapp: "https://wa.me/62882003233343",
       };
       window.open(urls[platform], "_blank");
     },
