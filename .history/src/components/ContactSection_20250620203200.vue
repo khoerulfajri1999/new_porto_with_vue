@@ -3,8 +3,9 @@
     <!-- Robot Send Message Section -->
     <section ref="robotMessageSection" id="contact" class="relative py-20 bg-gradient-to-tl from-[#030415] via-[#1E0B38] to-[#030415] overflow-hidden">
       <!-- Animated Background Grid -->
-      <div ref="gridPattern" class="absolute inset-0 bg-[linear-gradient(rgba(120,119,198,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(120,119,198,0.1)_1px,transparent_1px)] bg-[size:50px_50px] animate-pulse"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(120,119,198,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(120,119,198,0.1)_1px,transparent_1px)] bg-[size:50px_50px] animate-pulse"></div>
     
+
       <!-- Floating Circuit Elements -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div ref="circuit1" class="absolute top-20 left-10 w-32 h-32 opacity-30">
@@ -99,7 +100,7 @@
                     </div>
                     <!-- Display Screen -->
                     <div class="mt-2 mx-2 h-8 bg-black rounded border border-cyan-400/30 flex items-center justify-center">
-                      <span ref="robotDisplay" class="text-cyan-400 font-mono text-xs">{{ robotDisplayText }}</span>
+                      <span ref="robotDisplay" class="text-cyan-400 font-mono text-xs">READY_TO_RECEIVE</span>
                     </div>
                   </div>
                   
@@ -156,7 +157,7 @@
               <!-- Scanning Line Effect -->
               <div ref="scanLine" class="absolute left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60"></div>
 
-              <form @submit.prevent="sendEmail" class="space-y-6">
+              <form @submit.prevent="submitMessage" class="space-y-6 ">
                 <!-- Name Input -->
                 <div ref="nameField">
                   <label class="block text-cyan-400 text-sm font-mono mb-2 uppercase tracking-wider">
@@ -254,7 +255,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import emailjs from '@emailjs/browser'
@@ -281,6 +282,7 @@ const robotDisplayText = computed(() => {
   if (success.value === false) return 'TRANSMISSION_FAILED'
   return 'READY_TO_RECEIVE'
 })
+
 
 // Template refs
 const robotMessageSection = ref(null)
@@ -325,334 +327,270 @@ const statusBar = ref(null)
 const buttonGlow = ref(null)
 
 // Methods
-const sendEmail = async (e) => {
-  e.preventDefault()
+const submitMessage = async () => {
   isTransmitting.value = true
-  success.value = null
-
+  
   // Animate robot response
-  if (robotDisplay.value) {
-    gsap.to(robotDisplay.value, {
-      duration: 0.5,
-      scale: 1.1,
-      ease: "power2.out"
-    })
-  }
+  gsap.to(robotDisplay.value, {
+    duration: 0.5,
+    scale: 1.1,
+    ease: "power2.out"
+  })
   
   // Change robot expression
-  if (mainEye1.value && mainEye2.value) {
-    gsap.to([mainEye1.value, mainEye2.value], {
-      duration: 0.3,
-      scaleY: 0.3,
-      repeat: 3,
-      yoyo: true,
-      ease: "power2.inOut"
-    })
+  gsap.to([mainEye1.value, mainEye2.value], {
+    duration: 0.3,
+    scaleY: 0.3,
+    repeat: 3,
+    yoyo: true,
+    ease: "power2.inOut"
+  })
+  
+  // Simulate transmission
+  await new Promise(resolve => setTimeout(resolve, 3000))
+  
+  // Reset form
+  messageForm.value = {
+    name: '',
+    email: '',
+    message: ''
   }
-
-  try {
-    // Mengambil nilai dari environment variables (untuk Vite gunakan VITE_ prefix)
-    const serviceID = import.meta.env.VITE_SERVICE_ID
-    const templateID = import.meta.env.VITE_TEMPLATE_ID
-    const publicKey = import.meta.env.VITE_PUBLIC_KEY
-    console.log("public key : ", publicKey);
-    console.log("service id : ", serviceID);
-    
-
-    const templateParams = {
-      from_name: messageForm.value.name,
-      from_email: messageForm.value.email,
-      to_email: 'khoerulfajri1999@gmail.com',
-      message: messageForm.value.message,
-      reply_to: messageForm.value.email,
-    }
-
-    const response = await emailjs.send(serviceID, templateID, templateParams, publicKey)
-    
-    console.log('SUCCESS!', response.status, response.text)
-    success.value = true
-    
-    // Reset form
-    messageForm.value = {
-      name: '',
-      email: '',
-      message: ''
-    }
-    
-    // Success animation
-    if (buttonGlow.value) {
+  
+  isTransmitting.value = false
+  
+  // Success animation
+  gsap.to(buttonGlow.value, {
+    duration: 0.5,
+    opacity: 1,
+    scale: 1.2,
+    ease: "power2.out",
+    onComplete: () => {
       gsap.to(buttonGlow.value, {
         duration: 0.5,
-        opacity: 1,
-        scale: 1.2,
-        ease: "power2.out",
-        onComplete: () => {
-          gsap.to(buttonGlow.value, {
-            duration: 0.5,
-            opacity: 0,
-            scale: 1,
-            ease: "power2.in"
-          })
-        }
+        opacity: 0,
+        scale: 1,
+        ease: "power2.in"
       })
     }
-    
-  } catch (err) {
-    console.log('FAILED...', err)
-    success.value = false
-  } finally {
-    isTransmitting.value = false
-    
-    // Reset success/error message after 5 seconds
-    setTimeout(() => {
-      success.value = null
-    }, 5000)
-  }
+  })
+  
+  alert('Message transmitted successfully!')
 }
 
 // GSAP Animations
 const initRobotAnimations = () => {
+  // Create main timeline
+  const mainTl = gsap.timeline()
+  
   // Background animations
-  if (gridPattern.value) {
-    gsap.to(gridPattern.value, {
-      duration: 20,
-      backgroundPosition: "100px 100px",
-      repeat: -1,
-      ease: "none"
-    })
-  }
+  gsap.to(gridPattern.value, {
+    duration: 20,
+    backgroundPosition: "100px 100px",
+    repeat: -1,
+    ease: "none"
+  })
   
   // Circuit animations
-  if (circuit1.value) {
-    gsap.to(circuit1.value, {
-      duration: 8,
-      rotation: 360,
-      repeat: -1,
-      ease: "none"
-    })
-  }
+  gsap.to(circuit1.value, {
+    duration: 8,
+    rotation: 360,
+    repeat: -1,
+    ease: "none"
+  })
   
-  if (circuit2.value) {
-    gsap.to(circuit2.value, {
-      duration: 6,
-      rotation: -360,
-      repeat: -1,
-      ease: "none"
-    })
-  }
+  gsap.to(circuit2.value, {
+    duration: 6,
+    rotation: -360,
+    repeat: -1,
+    ease: "none"
+  })
   
-  if (circuit3.value) {
-    gsap.to(circuit3.value, {
-      duration: 10,
-      rotation: 360,
-      repeat: -1,
-      ease: "none"
-    })
-  }
+  gsap.to(circuit3.value, {
+    duration: 10,
+    rotation: 360,
+    repeat: -1,
+    ease: "none"
+  })
   
   // Glowing orbs
-  if (glowOrb1.value && glowOrb2.value && glowOrb3.value) {
-    gsap.to([glowOrb1.value, glowOrb2.value, glowOrb3.value], {
-      duration: 2,
-      scale: 1.5,
-      opacity: 0.8,
-      repeat: -1,
-      yoyo: true,
-      stagger: 0.3,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to([glowOrb1.value, glowOrb2.value, glowOrb3.value], {
+    duration: 2,
+    scale: 1.5,
+    opacity: 0.8,
+    repeat: -1,
+    yoyo: true,
+    stagger: 0.3,
+    ease: "power2.inOut"
+  })
   
   // Robot eye blinking
-  if (robotEye1.value && robotEye2.value && mainEye1.value && mainEye2.value) {
-    gsap.to([robotEye1.value, robotEye2.value, mainEye1.value, mainEye2.value], {
-      duration: 0.1,
-      scaleY: 0.1,
-      repeat: -1,
-      repeatDelay: 3,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to([robotEye1.value, robotEye2.value, mainEye1.value, mainEye2.value], {
+    duration: 0.1,
+    scaleY: 0.1,
+    repeat: -1,
+    repeatDelay: 3,
+    ease: "power2.inOut"
+  })
   
   // Robot antenna pulsing
-  if (robotAntenna.value && antennaLight.value) {
-    gsap.to([robotAntenna.value, antennaLight.value], {
-      duration: 1.5,
-      scale: 1.2,
-      opacity: 0.8,
-      repeat: -1,
-      yoyo: true,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to([robotAntenna.value, antennaLight.value], {
+    duration: 1.5,
+    scale: 1.2,
+    opacity: 0.8,
+    repeat: -1,
+    yoyo: true,
+    ease: "power2.inOut"
+  })
   
   // Status lights sequence
-  if (statusLight1.value && statusLight2.value && statusLight3.value) {
-    gsap.to([statusLight1.value, statusLight2.value, statusLight3.value], {
-      duration: 0.5,
-      scale: 1.3,
-      repeat: -1,
-      stagger: 0.2,
-      yoyo: true,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to([statusLight1.value, statusLight2.value, statusLight3.value], {
+    duration: 0.5,
+    scale: 1.3,
+    repeat: -1,
+    stagger: 0.2,
+    yoyo: true,
+    ease: "power2.inOut"
+  })
   
   // Robot arms subtle movement
-  if (robotArmLeft.value) {
-    gsap.to(robotArmLeft.value, {
-      duration: 4,
-      rotation: 5,
-      repeat: -1,
-      yoyo: true,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to(robotArmLeft.value, {
+    duration: 4,
+    rotation: 5,
+    repeat: -1,
+    yoyo: true,
+    ease: "power2.inOut"
+  })
   
-  if (robotArmRight.value) {
-    gsap.to(robotArmRight.value, {
-      duration: 4,
-      rotation: -5,
-      repeat: -1,
-      yoyo: true,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to(robotArmRight.value, {
+    duration: 4,
+    rotation: -5,
+    repeat: -1,
+    yoyo: true,
+    ease: "power2.inOut"
+  })
   
   // Data particles floating
-  if (dataParticle1.value && dataParticle2.value && dataParticle3.value) {
-    gsap.to([dataParticle1.value, dataParticle2.value, dataParticle3.value], {
-      duration: 3,
-      y: -20,
-      opacity: 1,
-      repeat: -1,
-      stagger: 0.5,
-      yoyo: true,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to([dataParticle1.value, dataParticle2.value, dataParticle3.value], {
+    duration: 3,
+    y: -20,
+    opacity: 1,
+    repeat: -1,
+    stagger: 0.5,
+    yoyo: true,
+    ease: "power2.inOut"
+  })
   
   // Holographic ring pulsing
-  if (holographicRing.value) {
-    gsap.to(holographicRing.value, {
-      duration: 2,
-      scaleX: 1.2,
-      opacity: 0.4,
-      repeat: -1,
-      yoyo: true,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to(holographicRing.value, {
+    duration: 2,
+    scaleX: 1.2,
+    opacity: 0.4,
+    repeat: -1,
+    yoyo: true,
+    ease: "power2.inOut"
+  })
   
   // Scanning line animation
-  if (scanLine.value) {
-    gsap.to(scanLine.value, {
-      duration: 3,
-      top: "100%",
-      repeat: -1,
-      ease: "power2.inOut"
-    })
-  }
+  gsap.to(scanLine.value, {
+    duration: 3,
+    top: "100%",
+    repeat: -1,
+    ease: "power2.inOut"
+  })
 }
 
 const initScrollTriggerAnimations = () => {
   // Main entrance animation - will retrigger every time
-  if (robotMessageSection.value) {
-    ScrollTrigger.create({
-      trigger: robotMessageSection.value,
-      start: "top 80%",
-      end: "bottom 20%",
-      toggleActions: "play none none reverse",
-      animation: gsap.timeline()
-        .from(sectionTitle.value, {
-          duration: 1,
-          y: 100,
-          opacity: 0,
-          ease: "power3.out"
-        })
-        .from(sectionSubtitle.value, {
-          duration: 0.8,
-          y: 50,
-          opacity: 0,
-          ease: "power3.out"
-        }, "-=0.6")
-        .from(statusIndicator.value, {
-          duration: 0.6,
-          scale: 0,
-          opacity: 0,
-          ease: "back.out(1.7)"
-        }, "-=0.4")
-        .from(robotContainer.value, {
-          duration: 1.2,
-          x: -100,
-          opacity: 0,
-          ease: "power3.out"
-        }, "-=0.8")
-        .from(messageForm.value, {
-          duration: 1.2,
-          x: 100,
-          opacity: 0,
-          ease: "power3.out"
-        }, "-=1")
-        .from([nameField.value, emailField.value, messageField.value, submitButton.value, statusBar.value], {
-          duration: 0.6,
-          y: 30,
-          opacity: 0,
-          stagger: 0.1,
-          ease: "power3.out"
-        }, "-=0.6")
-    })
-  }
+  ScrollTrigger.create({
+    trigger: robotMessageSection.value,
+    start: "top 80%",
+    end: "bottom 20%",
+    toggleActions: "play none none reverse",
+    animation: gsap.timeline()
+      .from(sectionTitle.value, {
+        duration: 1,
+        y: 100,
+        opacity: 0,
+        ease: "power3.out"
+      })
+      .from(sectionSubtitle.value, {
+        duration: 0.8,
+        y: 50,
+        opacity: 0,
+        ease: "power3.out"
+      }, "-=0.6")
+      .from(statusIndicator.value, {
+        duration: 0.6,
+        scale: 0,
+        opacity: 0,
+        ease: "back.out(1.7)"
+      }, "-=0.4")
+      .from(robotContainer.value, {
+        duration: 1.2,
+        x: -100,
+        opacity: 0,
+        ease: "power3.out"
+      }, "-=0.8")
+      .from(messageForm.value, {
+        duration: 1.2,
+        x: 100,
+        opacity: 0,
+        ease: "power3.out"
+      }, "-=1")
+      .from([nameField.value, emailField.value, messageField.value, submitButton.value, statusBar.value], {
+        duration: 0.6,
+        y: 30,
+        opacity: 0,
+        stagger: 0.1,
+        ease: "power3.out"
+      }, "-=0.6")
+  })
   
   // Robot head entrance animation
-  if (robotHead.value) {
-    ScrollTrigger.create({
-      trigger: robotHead.value,
-      start: "top 90%",
-      toggleActions: "play none none reverse",
-      animation: gsap.timeline()
-        .from(robotHead.value, {
-          duration: 1,
-          scale: 0,
-          rotation: 180,
-          ease: "back.out(1.7)"
-        })
-        .from([robotEye1.value, robotEye2.value], {
-          duration: 0.5,
-          scale: 0,
-          stagger: 0.1,
-          ease: "back.out(1.7)"
-        }, "-=0.5")
-    })
-  }
+  ScrollTrigger.create({
+    trigger: robotHead.value,
+    start: "top 90%",
+    toggleActions: "play none none reverse",
+    animation: gsap.timeline()
+      .from(robotHead.value, {
+        duration: 1,
+        scale: 0,
+        rotation: 180,
+        ease: "back.out(1.7)"
+      })
+      .from([robotEye1.value, robotEye2.value], {
+        duration: 0.5,
+        scale: 0,
+        stagger: 0.1,
+        ease: "back.out(1.7)"
+      }, "-=0.5")
+  })
   
   // Robot body parts animation
-  if (robotBody.value) {
-    ScrollTrigger.create({
-      trigger: robotBody.value,
-      start: "top 85%",
-      toggleActions: "play none none reverse",
-      animation: gsap.timeline()
-        .from(robotMainHead.value, {
-          duration: 0.8,
-          y: -50,
-          opacity: 0,
-          ease: "bounce.out"
-        })
-        .from(robotBody.value, {
-          duration: 1,
-          scale: 0.8,
-          opacity: 0,
-          ease: "power3.out"
-        }, "-=0.6")
-        .from([robotArmLeft.value, robotArmRight.value], {
-          duration: 0.6,
-          scaleY: 0,
-          stagger: 0.1,
-          ease: "power3.out"
-        }, "-=0.4")
-    })
-  }
+  ScrollTrigger.create({
+    trigger: robotBody.value,
+    start: "top 85%",
+    toggleActions: "play none none reverse",
+    animation: gsap.timeline()
+      .from(robotMainHead.value, {
+        duration: 0.8,
+        y: -50,
+        opacity: 0,
+        ease: "bounce.out"
+      })
+      .from(robotBody.value, {
+        duration: 1,
+        scale: 0.8,
+        opacity: 0,
+        ease: "power3.out"
+      }, "-=0.6")
+      .from([robotArmLeft.value, robotArmRight.value], {
+        duration: 0.6,
+        scaleY: 0,
+        stagger: 0.1,
+        ease: "power3.out"
+      }, "-=0.4")
+  })
 }
 
 // Lifecycle hooks
@@ -732,35 +670,6 @@ input:focus, textarea:focus {
 /* Button hover effects */
 button:hover {
   box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
-}
-
-/* Animation classes */
-@keyframes button-glow {
-  0% { opacity: 0; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
-  100% { opacity: 0; transform: scale(1); }
-}
-
-@keyframes message-success {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes message-error {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-button-glow {
-  animation: button-glow 0.5s ease-out;
-}
-
-.animate-message-success {
-  animation: message-success 0.5s ease-out;
-}
-
-.animate-message-error {
-  animation: message-error 0.5s ease-out;
 }
 
 /* Responsive adjustments */

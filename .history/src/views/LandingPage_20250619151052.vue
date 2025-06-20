@@ -37,26 +37,9 @@ import HeroFooter from "../components/layout/HeroFooter.vue";
 const ContactSection = defineAsyncComponent(() =>
   import("../components/ContactSection.vue")
 )
-const SkillSection = defineAsyncComponent({
-  loader: () => {
-    console.log('Attempting to load SkillSection...');
-    return import('../components/SkillSection.vue').then(module => {
-      console.log('SkillSection loaded successfully');
-      return module;
-    }).catch(err => {
-      console.error('Failed to load SkillSection:', err);
-      throw err;
-    });
-  },
-  loadingComponent: {
-    template: '<p class="text-center">Loading skill section...</p>'
-  },
-  errorComponent: {
-    template: '<p class="text-center text-red-500">Failed to load skill section</p>'
-  },
-  delay: 200,
-  timeout: 3000,
-});
+const SkillSection = defineAsyncComponent(() =>
+  import("../components/SkillSection.vue")
+)
 const ProjectSection = defineAsyncComponent(() =>
   import("../components/ProjectSection.vue")
 )

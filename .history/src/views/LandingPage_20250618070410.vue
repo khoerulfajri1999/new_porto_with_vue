@@ -23,43 +23,17 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
 import { ChevronDown } from "lucide-vue-next";
 
-// Eager loaded (langsung dimuat saat halaman dibuka)
 import Header from "../components/layout/Header.vue";
 import MobileMenu from "../components/layout/MobileMenu.vue";
 import HeroSection from "../components/HeroSection.vue";
 import Footer from "../components/layout/Footer.vue";
 import HeroFooter from "../components/layout/HeroFooter.vue";
-
-// Lazy loaded (baru dimuat saat dibutuhkan)
-const ContactSection = defineAsyncComponent(() =>
-  import("../components/ContactSection.vue")
-)
-const SkillSection = defineAsyncComponent({
-  loader: () => {
-    console.log('Attempting to load SkillSection...');
-    return import('../components/SkillSection.vue').then(module => {
-      console.log('SkillSection loaded successfully');
-      return module;
-    }).catch(err => {
-      console.error('Failed to load SkillSection:', err);
-      throw err;
-    });
-  },
-  loadingComponent: {
-    template: '<p class="text-center">Loading skill section...</p>'
-  },
-  errorComponent: {
-    template: '<p class="text-center text-red-500">Failed to load skill section</p>'
-  },
-  delay: 200,
-  timeout: 3000,
-});
-const ProjectSection = defineAsyncComponent(() =>
-  import("../components/ProjectSection.vue")
-)
+import UnderContruction from "../components/layout/UnderContruction.vue";
+import ContactSection from "../components/ContactSection.vue";
+import SkillSection from "../components/SkillSection.vue";
+import ProjectSection from "../components/ProjectSection.vue";
 
 export default {
   name: "LandingPage",
@@ -70,6 +44,7 @@ export default {
     Footer,
     HeroFooter,
     ContactSection,
+    UnderContruction,
     SkillSection,
     ProjectSection,
     ChevronDown,
@@ -87,6 +62,8 @@ export default {
       console.log("Navigating to contact/shop page");
     },
     openSocial(platform) {
+      console.log("olatform : ", platform);
+      
       const urls = {
         linkedin: "https://www.linkedin.com/in/khoerul-fajri-93698a229/",
         github: "https://github.com/khoerulfajri1999/",
@@ -97,7 +74,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 @keyframes float {

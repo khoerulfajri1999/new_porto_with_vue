@@ -352,11 +352,11 @@ const sendEmail = async (e) => {
 
   try {
     // Mengambil nilai dari environment variables (untuk Vite gunakan VITE_ prefix)
-    const serviceID = import.meta.env.VITE_SERVICE_ID
-    const templateID = import.meta.env.VITE_TEMPLATE_ID
-    const publicKey = import.meta.env.VITE_PUBLIC_KEY
+    const serviceID = import.meta.env.VUE_APP_SERVICE_ID
+    const templateID = import.meta.env.VUE_APP_TEMPLATE_ID
+    const publicKey = import.meta.env.VUE_APP_PUBLIC_KEY
     console.log("public key : ", publicKey);
-    console.log("service id : ", serviceID);
+    console.log("public key : ", publicKey);
     
 
     const templateParams = {

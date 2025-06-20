@@ -355,9 +355,6 @@ const sendEmail = async (e) => {
     const serviceID = import.meta.env.VITE_SERVICE_ID
     const templateID = import.meta.env.VITE_TEMPLATE_ID
     const publicKey = import.meta.env.VITE_PUBLIC_KEY
-    console.log("public key : ", publicKey);
-    console.log("service id : ", serviceID);
-    
 
     const templateParams = {
       from_name: messageForm.value.name,
