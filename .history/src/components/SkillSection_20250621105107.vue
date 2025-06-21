@@ -520,11 +520,11 @@ onMounted(() => {
         <div class="text-md text-slate-300 space-y-2">
           <div class="flex items-center gap-2 hover:text-blue-400 transition-colors duration-200">
             <div class="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-            <span>Frontend: React.js, Vue.js, Next.js</span>
+            <span>Frontend: React.js, Vue.js, Next.js, </span>
           </div>
           <div class="flex items-center gap-2 hover:text-green-400 transition-colors duration-200">
             <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
-            <span>Backend: Node.js, Express.js, Laravel, Spring Boot, Django</span>
+            <span>Backend: Node.js, Express, Laravel</span>
           </div>
           <div class="flex items-center gap-2 hover:text-yellow-400 transition-colors duration-200">
             <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
